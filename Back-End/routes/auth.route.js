@@ -1,5 +1,6 @@
 import express from "express";
 import { validationResult } from "express-validator";
+import rateLimit from "express-rate-limit";
 import {
   registerUser,
   loginUser,
@@ -18,9 +19,17 @@ const validate = (req, res, next) => {
   next();
 };
 
-router.post("/register", registerUserDto, validate, registerUser);
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 20,
+  message: { message: "Too many requests, please try again later" },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
-router.post("/login", loginUserDto, validate, loginUser);
+router.post("/register", authLimiter, registerUserDto, validate, registerUser);
+
+router.post("/login", authLimiter, loginUserDto, validate, loginUser);
 
 router.post("/refresh", refreshToken);
 

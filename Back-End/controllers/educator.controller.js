@@ -17,11 +17,11 @@ export const getEducatorStats = async (req, res) => {
     }
 
     const totalCourses = await Course.countDocuments({
-      instructor: educatorId,
+      createdBy: educatorId,
     });
 
     const educatorCourses = await Course.find({
-      instructor: educatorId,
+      createdBy: educatorId,
     }).select("students");
     const totalStudents = educatorCourses.reduce(
       (sum, course) => sum + (course.students?.length || 0),
@@ -47,7 +47,6 @@ export const createCourse = async (req, res) => {
 
     const data = {
       ...req.body,
-      instructor: educatorId,
       createdBy: educatorId,
       isPublished: !!req.body.isPublished,
       publishedAt: req.body.isPublished ? new Date() : null,
@@ -70,12 +69,12 @@ export const getAllCourses = async (req, res) => {
     const { page = 1, limit = 10, q } = req.query;
 
     const filter = {
-      instructor: req.user._id, // only this educator's courses
+      createdBy: req.user._id,
       ...(q ? { title: { $regex: q, $options: "i" } } : {}),
     };
 
     const courses = await Course.find(filter)
-      .populate("instructor", "userName email")
+      .populate("createdBy", "userName email")
       .skip((page - 1) * limit)
       .limit(Number(limit))
       .sort({ createdAt: -1 });
@@ -99,7 +98,7 @@ export const getAllCourses = async (req, res) => {
 export const getCourseById = async (req, res) => {
   try {
     const course = await Course.findById(req.params.id).populate(
-      "instructor",
+      "createdBy",
       "userName"
     );
     if (!course) return res.status(404).json({ message: "Course not found" });

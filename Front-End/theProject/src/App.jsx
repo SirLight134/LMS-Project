@@ -4,7 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import Home from "./pages/HomePage/Home";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar/Navbar";
-import ProtectedRoute from "./components/protectedRoute";
+import ProtectedRoute from "./components/ProtectedRoute";
 import StudentHome from "./pages/student/StudentHome";
 import StudentCoursesPage from "./pages/student/StudentCoursesPage";
 import EducatorDashboard from "./pages/educator/EducatorDashboard";

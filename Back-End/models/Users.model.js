@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema(
     userName: {
       type: String,
       required: [true, "User Name is required"],
-      minlength: [5, "User Name must be atleast be 5 characters"],
+      minlength: [5, "User Name must be at least 5 characters"],
       trim: true,
     },
     email: {
@@ -23,6 +23,15 @@ const userSchema = new mongoose.Schema(
     role: {
       type: String,
       enum: ["student", "educator"],
+    },
+    bio: {
+      type: String,
+      trim: true,
+      maxlength: [500, "Bio cannot exceed 500 characters"],
+    },
+    avatar: {
+      type: String,
+      trim: true,
     },
   },
   { timestamps: true }

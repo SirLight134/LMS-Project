@@ -44,7 +44,7 @@ export const getEnrolledCourses = async (req, res) => {
   try {
     const studentId = req.user.id;
     const courses = await Course.find({ students: studentId })
-      .populate("instructor", "userName")
+      .populate("createdBy", "userName")
       .sort({ createdAt: -1 });
 
     const progressRecords = await Progress.find({ student: studentId });
@@ -75,7 +75,7 @@ export const getStudentCourseById = async (req, res) => {
     const studentId = req.user?.id; // optional, in case no token
 
     const course = await Course.findById(id)
-      .populate("instructor", "userName")
+      .populate("createdBy", "userName")
       .populate("content");
 
     if (!course) return res.status(404).json({ message: "Course not found" });

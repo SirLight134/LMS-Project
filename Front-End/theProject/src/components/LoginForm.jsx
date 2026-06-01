@@ -1,15 +1,15 @@
 import { useState } from "react";
 
 export default function SignInForm({ onSubmit }) {
-  const [formData, setformmData] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
   const [error, setError] = useState("");
 
-  const handeleChange = (e) => {
-    setformmData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
@@ -35,7 +35,7 @@ export default function SignInForm({ onSubmit }) {
           name="email"
           placeholder="Email"
           value={formData.email}
-          onChange={handeleChange}
+          onChange={handleChange}
           className="w-full mb-3 p-2 border rounded"
           required
         />
@@ -44,7 +44,7 @@ export default function SignInForm({ onSubmit }) {
           name="password"
           placeholder="password"
           value={formData.password}
-          onChange={handeleChange}
+          onChange={handleChange}
           className="w-full mb-3 p-2 border rounded"
           required
         />

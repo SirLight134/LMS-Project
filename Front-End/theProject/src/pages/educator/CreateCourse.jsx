@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { fetchWithAuth } from "../../api/fetchWithAuth";
 import { useAuth } from "../../context/AuthContext";
 import { createEducatorCourse } from "../../api/educator";
 export default function CreateCoursePage() {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { fetchWithAuth } from "../../api/fetchWithAuth";
+import { getEnrolledCourses, enrollInCourse } from "../../api/student";
 
 export default function AllCoursesPage() {
   const { user } = useAuth();
@@ -9,17 +9,13 @@ export default function AllCoursesPage() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [enrolling, setEnrolling] = useState(null);
+  const [enrolling] = useState(null);
 
   useEffect(() => {
     async function loadCourses() {
       try {
         if (!token) throw new Error("No token found");
-        const data = await fetchWithAuth(
-          "http://localhost:5051/api/student/courses",
-          {},
-          token
-        );
+        const data = await getEnrolledCourses(token);
         setCourses(data.data || []);
       } catch (err) {
         console.error("Error loading courses:", err);
@@ -34,11 +30,7 @@ export default function AllCoursesPage() {
 
   const handleEnroll = async (courseId) => {
     try {
-      const res = await fetchWithAuth(
-        `http://localhost:5051/api/student/enroll/${courseId}`,
-        { method: "POST" },
-        token
-      );
+      await enrollInCourse(courseId, token);
       alert("Enrolled successfully!");
     } catch (err) {
       console.error("Error enrolling:", err);
@@ -60,7 +52,7 @@ export default function AllCoursesPage() {
           <div key={course._id} className="bg-white p-4 rounded-lg shadow">
             <h2 className="text-xl font-semibold mb-2">{course.title}</h2>
             <p className="text-gray-500 mb-3">
-              By {course.instructor?.userName || "Unknown"}
+              By {course.createdBy?.userName || "Unknown"}
             </p>
 
             <button

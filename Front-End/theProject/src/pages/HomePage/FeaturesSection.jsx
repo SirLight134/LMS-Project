@@ -1,10 +1,10 @@
-import { BookOpen, UserCheck, Clock, Award, icons } from "lucide-react";
+import { BookOpen, UserCheck, Clock, Award } from "lucide-react";
 export default function FeatureSection() {
   const Feature = [
     {
       icon: <BookOpen className="w-10 h-10 text-blue-600" />,
       title: "Wide Range of Courses",
-      desc: "Explore topics from Buisness to Technology and beyond",
+      desc: "Explore topics from Business to Technology and beyond",
     },
     {
       icon: <UserCheck className="w-10 h-10 text-blue-600" />,
@@ -24,7 +24,7 @@ export default function FeatureSection() {
   ];
 
   return (
-    <section className="py-20 bg-grey">
+    <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-6 text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-12">
           Why Choose <span className="text-blue-600">Our LMS</span>

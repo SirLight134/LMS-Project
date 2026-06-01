@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { fetchWithAuth } from "../../api/fetchWithAuth";
-import CourseCard from "../../components/student/CourseCard";
+import CourseCard from "../../components/Student/CourseCard";
 import { useNavigate } from "react-router-dom";
-import { enrollInCourse } from "../../api/student";
+import { getEnrolledCourses, getStudentStats, getRecommendedCourses, enrollInCourse } from "../../api/student";
 export default function StudentHome() {
   const { user } = useAuth();
   const token = user?.token;
@@ -20,21 +19,9 @@ export default function StudentHome() {
     async function load() {
       setLoading(true);
       try {
-        const c = await fetchWithAuth(
-          "http://localhost:5051/api/student/courses",
-          {},
-          token
-        );
-        const s = await fetchWithAuth(
-          "http://localhost:5051/api/student/stats",
-          {},
-          token
-        );
-        const r = await fetchWithAuth(
-          "http://localhost:5051/api/student/recommended",
-          {},
-          token
-        );
+        const c = await getEnrolledCourses(token);
+        const s = await getStudentStats(token);
+        const r = await getRecommendedCourses(token);
 
         if (!mounted) return;
 

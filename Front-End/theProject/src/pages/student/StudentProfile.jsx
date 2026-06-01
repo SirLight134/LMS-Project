@@ -4,7 +4,7 @@ import { getStudentProfile, updateStudentProfile } from "../../api/student";
 export default function StudentProfile() {
   const { user } = useAuth();
   const token = user?.token;
-  const [profile, setProfile] = useState({});
+  const [profile, setProfile] = useState(null);
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function StudentProfile() {
 
   const handleSave = async () => {
     const updated = await updateStudentProfile(token, profile);
-    setProfile(updated);
+    setProfile(updated.data || updated);
     setEditing(false);
   };
 
@@ -40,8 +40,8 @@ export default function StudentProfile() {
       <div>
         <label className="block text-sm">Name</label>
         <input
-          name="name"
-          value={profile.name || ""}
+          name="userName"
+          value={profile.userName || ""}
           onChange={handleChange}
           disabled={!editing}
           className="border p-2 w-full rounded"

@@ -34,7 +34,7 @@ export async function createEducatorCourse(token, courseData) {
 }
 export async function deleteEducatorCourse(token, id) {
   return await fetchWithAuth(
-    `http://localhost:5051/api/educator/courses/${id}`,
+    `${BASE_URL}/courses/${id}`,
     { method: "DELETE" },
     token
   );
@@ -42,7 +42,7 @@ export async function deleteEducatorCourse(token, id) {
 
 export async function updateEducatorCourse(token, id, data) {
   return await fetchWithAuth(
-    `http://localhost:5051/api/educator/courses/${id}`,
+    `${BASE_URL}/courses/${id}`,
     {
       method: "PUT",
       body: JSON.stringify(data),

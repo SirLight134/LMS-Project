@@ -42,11 +42,11 @@ export default function CoursesPreview() {
           popular <span className="text-blue-600">Courses</span>
         </h2>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid cols-3">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {Course.map((course) => (
             <div
               key={course.id}
-              className="bg-white rounded-2xl shadow hover:shadow-lg transtion overflow-hidden"
+              className="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden"
             >
               <img
                 src={course.image}

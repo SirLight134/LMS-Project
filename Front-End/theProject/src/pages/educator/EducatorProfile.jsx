@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { fetchWithAuth } from "../../api/fetchWithAuth";
+import { getEducatorProfile, updateEducatorProfile } from "../../api/educator";
 
 export default function EducatorProfile() {
   const { user } = useAuth();
@@ -11,11 +11,7 @@ export default function EducatorProfile() {
   useEffect(() => {
     async function loadProfile() {
       try {
-        const res = await fetchWithAuth(
-          "http://localhost:5051/api/educator/profile",
-          { method: "GET" },
-          token
-        );
+        const res = await getEducatorProfile(token);
         setProfile(res.data?.data || res.data);
       } catch (err) {
         console.error("Error loading profile:", err);
@@ -36,16 +32,7 @@ export default function EducatorProfile() {
         avatar: profile.avatar,
       };
 
-      const res = await fetchWithAuth(
-        "http://localhost:5051/api/educator/profile",
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(updateData),
-        },
-        token
-      );
-
+      const res = await updateEducatorProfile(token, updateData);
       setProfile(res.data?.data || res.data);
       setEditing(false);
     } catch (err) {

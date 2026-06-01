@@ -1,8 +1,7 @@
-// src/pages/student/CourseDetails.jsx
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { fetchWithAuth } from "../../api/fetchWithAuth";
+import { getStudentCourseById, enrollInCourse } from "../../api/student";
 
 export default function CourseDetails() {
   const { id } = useParams();
@@ -16,17 +15,12 @@ export default function CourseDetails() {
   const [enrolling, setEnrolling] = useState(false);
   const [error, setError] = useState("");
 
-  // Load course details
   useEffect(() => {
     async function loadCourse() {
       setLoading(true);
       setError("");
       try {
-        const res = await fetchWithAuth(
-          `/api/student/courses/${id}`,
-          {},
-          token
-        );
+        const res = await getStudentCourseById(id, token);
         setCourse(res.course);
         setProgress(res.progress || null);
         setIsEnrolled(res.isEnrolled || false);
@@ -41,20 +35,14 @@ export default function CourseDetails() {
     if (token) loadCourse();
   }, [id, token]);
 
-  // Handle enrollment
   const handleEnroll = async () => {
     if (!token) return alert("You must be logged in to enroll.");
     setEnrolling(true);
     try {
-      await fetchWithAuth(
-        `/api/student/enroll/${id}`,
-        { method: "POST" },
-        token
-      );
+      await enrollInCourse(id, token);
       alert("Enrolled successfully!");
       setIsEnrolled(true);
-      // Fetch progress for new enrollment
-      const res = await fetchWithAuth(`/api/student/courses/${id}`, {}, token);
+      const res = await getStudentCourseById(id, token);
       setProgress(res.progress || null);
     } catch (err) {
       console.error(err);
@@ -73,7 +61,7 @@ export default function CourseDetails() {
       <h1 className="text-3xl font-bold mb-2">{course.title}</h1>
       <p className="text-gray-700 mb-4">{course.description}</p>
       <p className="text-sm text-gray-500 mb-4">
-        By {course.instructor?.userName || "Unknown"}
+        By {course.createdBy?.userName || "Unknown"}
       </p>
 
       {!isEnrolled && token && (

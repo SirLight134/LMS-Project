@@ -3,7 +3,7 @@ export default function Testimonials() {
     {
       name: "Sam Winchester",
       role: "Web Developer",
-      text: "This LMS helped me land my first job its will structred",
+      text: "This LMS helped me land my first job, its structure is excellent",
       image: "/assets/MStudent1.jpg",
     },
     {
@@ -30,7 +30,7 @@ export default function Testimonials() {
           {testimonials.map((t, index) => (
             <div
               key={index}
-              className="p-6 bg-gray-100 rounded-2xl shadow hover:shaodw-lg tansition"
+              className="p-6 bg-gray-100 rounded-2xl shadow hover:shadow-lg transition"
             >
               <img
                 src={t.image}

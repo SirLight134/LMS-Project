@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { fetchWithAuth } from "../../api/fetchWithAuth";
 import { useAuth } from "../../context/AuthContext";
+import { getEducatorStats } from "../../api/educator";
 export default function EducatorHome() {
   const { user } = useAuth();
   const token = user?.token;
@@ -9,11 +9,7 @@ export default function EducatorHome() {
   useEffect(() => {
     async function loadStats() {
       try {
-        const data = await fetchWithAuth(
-          "http://localhost:5051/api/educator/stats",
-          {},
-          token
-        );
+        const data = await getEducatorStats(token);
         setStats(data);
       } catch (error) {
         console.log("Error loading stats: ", error);

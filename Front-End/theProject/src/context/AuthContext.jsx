@@ -29,7 +29,12 @@ export function AuthProvider({ children }) {
     navigate("/");
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await fetch("http://localhost:5051/api/auth/logout", { method: "POST", credentials: "include" });
+    } catch (err) {
+      console.error("Logout API call failed:", err);
+    }
     setUser(null);
     localStorage.removeItem("user");
     navigate("/login");
@@ -42,6 +47,7 @@ export function AuthProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
 }

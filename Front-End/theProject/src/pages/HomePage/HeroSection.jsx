@@ -3,7 +3,7 @@ export default function HeroSection() {
     <section className="bg-gray-50 py-20">
       <div className="container mx-auto flex flex-col md:flex-row items-center px-6">
         <div className="flex-1 text-center md:text-left">
-          <h1 className="text-4xl md:text-6xl font-bold loading-tight mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
             Learn Anytime, <span className="text-blue-600">Anywhere</span>
           </h1>
           <p className="text-lg text-gray-600 mb-6">

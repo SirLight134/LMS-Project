@@ -31,7 +31,7 @@ export default function StudentCoursesPage() {
             <div key={course._id} className="bg-white p-4 rounded-lg shadow">
               <h2 className="text-xl font-semibold mb-2">{course.title}</h2>
               <p className="text-gray-500 mb-3">
-                By {course.instructor?.userName || "Unknown"}
+                By {course.createdBy?.userName || "Unknown"}
               </p>
               <div className="w-full bg-gray-200 h-2 rounded mb-3">
                 <div
@@ -39,9 +39,12 @@ export default function StudentCoursesPage() {
                   style={{ width: `${course.progress || 0}%` }}
                 />
               </div>
-              <button className="bg-blue-600 text-white px-3 py-2 rounded">
+              <a
+                href={`/student/course/${course._id}`}
+                className="inline-block bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700"
+              >
                 Continue
-              </button>
+              </a>
             </div>
           ))
         )}

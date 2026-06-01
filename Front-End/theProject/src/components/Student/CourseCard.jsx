@@ -3,7 +3,7 @@ export default function CourseCard({ course, onContinue, onEnroll }) {
     <div className="bg-white shadow p-4 rounded">
       <h3 className="text-lg font-semibold">{course.title}</h3>
       <p className="text-sm text-gray-500 mb-2">
-        {course.instructor?.userName}
+        {course.createdBy?.userName}
       </p>
       <div className="flex justify-between items-center">
         {course.progress !== undefined && (

@@ -5,7 +5,7 @@ export const registerUserDto = [
     .notEmpty()
     .withMessage("userName is required")
     .isLength({ min: 3 })
-    .withMessage("userName Must be atleast 3"),
+    .withMessage("userName Must be at least 3"),
   body("email").isEmail().withMessage("Email is required"),
   body("password")
     .isLength({ min: 6 })
@@ -13,5 +13,5 @@ export const registerUserDto = [
   body("role")
     .optional()
     .isIn(["educator", "student"])
-    .withMessage("Role must be admin,instructor,or student"),
+    .withMessage("Role must be educator or student"),
 ];

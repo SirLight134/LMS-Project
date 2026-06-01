@@ -60,8 +60,7 @@ router.get(
   auth,
   authorizeRoles("student"),
   validate,
-  getStudentStats,
-  updateStudentProfile
+  getStudentStats
 );
 
 router.get(

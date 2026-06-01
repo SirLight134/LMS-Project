@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { fetchWithAuth } from "../../api/fetchWithAuth";
 import { useAuth } from "../../context/AuthContext";
-import { deleteEducatorCourse, updateEducatorCourse } from "../../api/educator";
+import { getEducatorCourses, deleteEducatorCourse, updateEducatorCourse } from "../../api/educator";
 export default function EducatorDashboard() {
   const { user } = useAuth();
   const token = user?.token;
@@ -10,12 +9,7 @@ export default function EducatorDashboard() {
   useEffect(() => {
     async function loadCourses() {
       try {
-        const data = await fetchWithAuth(
-          "http://localhost:5051/api/educator/courses",
-          {},
-          token
-        );
-        console.log("Fetched courses response:", data);
+        const data = await getEducatorCourses(token);
         setCourses(data.data || []);
       } catch (err) {
         console.error("Error loading courses:", err);
